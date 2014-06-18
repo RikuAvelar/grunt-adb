@@ -56,21 +56,21 @@ module.exports = function(grunt) {
 
         // UNINSTALL
         if (this.data.uninstall) {
-            run('adb ' + this.data.device + ' uninstall ' + result(this.data.uninstall), function(){
+            run('adb ' + this.data.device + ' uninstall ' + resultString(this.data.uninstall), function(){
                 done();
             });
         }
 
         // INSTALL
         if (this.data.install) {
-            run('adb ' + this.data.device + ' install -r ' + result(this.data.install), function(){
+            run('adb ' + this.data.device + ' install -r ' + resultString(this.data.install), function(){
                 done();
             });
         }
 
         // AM START aka LAUNCH
         if (this.data.launch) {
-            run('adb ' + this.data.device + ' shell am start ' + this.data.wait  + this.data.debug + this.data.action + ' -n ' + result(this.data.launch), function(){
+            run('adb ' + this.data.device + ' shell am start ' + this.data.wait  + this.data.debug + this.data.action + ' -n ' + resultString(this.data.launch), function(){
                 done();
             });
         }
