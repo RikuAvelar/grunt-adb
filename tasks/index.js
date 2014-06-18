@@ -12,6 +12,14 @@ module.exports = function(grunt) {
             var message = command + (error ? ' KO' : ' OK')[error ? 'red' : 'green'];
             grunt.log.writeln(message);
         });
+    };
+    
+    var resultString = function(stringProvider){
+        if(typeof stringProvider === 'string') {
+            return stringProvider;
+        } else {
+            return stringProvider();
+        }
     }
 
     grunt.registerMultiTask('adb', 'Launch ADB commands from Grunt', function() {
@@ -48,21 +56,21 @@ module.exports = function(grunt) {
 
         // UNINSTALL
         if (this.data.uninstall) {
-            run('adb ' + this.data.device + ' uninstall ' + this.data.uninstall, function(){
+            run('adb ' + this.data.device + ' uninstall ' + result(this.data.uninstall), function(){
                 done();
             });
         }
 
         // INSTALL
         if (this.data.install) {
-            run('adb ' + this.data.device + ' install -r ' + this.data.install, function(){
+            run('adb ' + this.data.device + ' install -r ' + result(this.data.install), function(){
                 done();
             });
         }
 
         // AM START aka LAUNCH
         if (this.data.launch) {
-            run('adb ' + this.data.device + ' shell am start ' + this.data.wait  + this.data.debug + this.data.action + ' -n ' + this.data.launch, function(){
+            run('adb ' + this.data.device + ' shell am start ' + this.data.wait  + this.data.debug + this.data.action + ' -n ' + result(this.data.launch), function(){
                 done();
             });
         }
